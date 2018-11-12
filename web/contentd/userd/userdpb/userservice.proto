@@ -1,0 +1,37 @@
+syntax = "proto3";
+
+import "userd.proto";
+
+service Contentd {
+  rpc NewUser (NewUserRequest) returns (NewUserResponse);
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc ValidateUser (ValidateUserRequest) returns (ValidateUserResponse);
+}
+
+message NewUserRequest {
+  string Name = 1;
+  string Email = 2;
+  string Password = 3;
+}
+
+message NewUserResponse {
+  bool Response = 1;
+}
+
+message GetUserRequest {
+  string Email = 1;
+}
+
+message GetUserResponse {
+  userd.User User = 1;
+}
+
+message ValidateUserRequest {
+  string Name = 1;
+  string Email = 2;
+  string Password = 3;
+}
+
+message ValidateUserResponse {
+  bool Response = 1;
+}
