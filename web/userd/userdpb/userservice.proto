@@ -2,9 +2,12 @@ syntax = "proto3";
 
 import "userd.proto";
 
-service Contentd {
+service Userd {
   rpc NewUser (NewUserRequest) returns (NewUserResponse);
   rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc ValidateUser (ValidateUserRequest) returns (GetUserResponse);
+  rpc FollowUser (FollowUserRequest) returns (FollowUserResponse);
+  rpc GetAllFollowers (FollowerDetailsRequest) returns (FollowerDetailsResponse); 
 }
 
 message NewUserRequest {
@@ -13,14 +16,32 @@ message NewUserRequest {
   string Password = 3;
 }
 
-message NewUserResponse {
-  bool Response = 1;
-}
+message NewUserResponse {}
 
 message GetUserRequest {
-  string Email = 1;
+  string UID = 1;
 }
 
 message GetUserResponse {
   userd.User User = 1;
+}
+
+message ValidateUserRequest {
+  string Email = 1;
+  string Password = 2;
+}
+
+message FollowUserRequest {
+  string UID = 1;
+  string FollowerUID = 2;
+}
+
+message FollowUserResponse{}
+
+message FollowerDetailsRequest {
+  string UID = 1; 
+}
+ 
+message FollowerDetailsResponse {
+  repeated userd.FollowerDetails Followers = 1;
 }

@@ -9,6 +9,7 @@ message User {
   string Name = 2;
   string Email = 3;
   string Password = 4;
+  repeated string FollowerUID = 5; 
 }
 
 message NewUser {
@@ -16,3 +17,16 @@ message NewUser {
   string Email = 2;
   string Password = 3;
 }
+
+message CheckUser {
+  string Email = 1;
+  string Password = 2;
+}
+
+message FollowerDetails {
+  string Name = 1;
+  string UID = 2;
+  bool Followed = 3; 
+}
+
+

@@ -1,9 +1,9 @@
-{{define "title"}}Go Web App{{end}}
+{{define "title"}}Chirper{{end}}
 {{define "head"}}{{end}}
 {{define "content"}}
 <div class="container">
 	<div class="page-header">
-		<h1>Hello, {{.first_name}}</h1>
+		<h1>Hello, {{.name}}</h1>
 	</div>
 	<p>You have arrived. Click {{LINK "Tweets" "here"}} to view your tweets.</p>
 	{{template "footer" .}}

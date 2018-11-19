@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/distsys-project/web/contentd/contentdpb"
+	"github.com/theryecatcher/chirper/web/contentd/contentdpb"
 )
 
 func (cnt *Contentd) GetTweet(ctx context.Context, req *contentdpb.GetTweetRequest) (*contentdpb.GetTweetResponse, error) {

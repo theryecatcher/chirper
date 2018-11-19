@@ -3,10 +3,10 @@ package main
 import (
 	"encoding/json"
 
-	"github.com/distsys-project/web"
-	"github.com/distsys-project/web/session"
-	"github.com/distsys-project/web/views"
-	"github.com/distsys-project/web/views/plugin"
+	"github.com/theryecatcher/chirper/web"
+	"github.com/theryecatcher/chirper/web/session"
+	"github.com/theryecatcher/chirper/web/views"
+	"github.com/theryecatcher/chirper/web/views/helpers"
 )
 
 // config the settings variable
@@ -35,9 +35,8 @@ func main() {
 	view.Configure(config.View)
 	view.LoadTemplates(config.Template.Root, config.Template.Children)
 	view.LoadPlugins(
-		plugin.TagHelper(config.View),
-		plugin.NoEscape(),
-		plugin.PrettyTime())
+		helpers.TagHelper(config.View),
+		helpers.PrettyTime())
 
 	cfg := &web.Config{
 		HTTPAddr: "localhost:80",

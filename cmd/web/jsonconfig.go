@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-// Parser must implement ParseJSON
+// Parser
 type Parser interface {
 	ParseJSON([]byte) error
 }

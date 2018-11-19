@@ -1,15 +1,15 @@
 package contentd
 
 import (
-	"github.com/distsys-project/web/contentd/storage"
+	"github.com/theryecatcher/chirper/web/contentd/storage"
 )
 
 type Contentd struct {
-	strg storage.Storage
+	strg contentstorage.Storage
 }
 
 func New(cfg *Config) (*Contentd, error) {
 	return &Contentd{
-		strg: &storage.DummyStorage{},
+		strg: contentstorage.NewDummyStorage(),
 	}, nil
 }

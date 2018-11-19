@@ -1,6 +1,8 @@
 package view
 
 import (
+	"encoding/gob"
+	"encoding/json"
 	"fmt"
 	"html/template"
 	"net/http"
@@ -10,10 +12,25 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/distsys-project/web/session"
+	"github.com/theryecatcher/chirper/web/session"
 )
 
+func init() {
+	// http://golang.org/pkg/encoding/gob/#Register
+	// Source: https://github.com/gorilla/sessions/issues/57
+	gob.Register(Flash{})
+}
+
 var (
+	// FlashError is a bootstrap class
+	FlashError = "alert-danger"
+	// FlashSuccess is a bootstrap class
+	FlashSuccess = "alert-success"
+	// FlashNotice is a bootstrap class
+	FlashNotice = "alert-info"
+	// FlashWarning is a bootstrap class
+	FlashWarning = "alert-warning"
+
 	childTemplates     []string
 	rootTemplate       string
 	templateCollection = make(map[string]*template.Template)
@@ -26,8 +43,8 @@ var (
 
 // Template root and children
 type Template struct {
-	Root     string   `base`
-	Children []string `[]`
+	Root     string   `json:"Root"`
+	Children []string `json:"Children"`
 }
 
 // View attributes
@@ -39,6 +56,12 @@ type View struct {
 	Caching   bool
 	Vars      map[string]interface{}
 	request   *http.Request
+}
+
+// Flash Message
+type Flash struct {
+	Message string
+	Class   string
 }
 
 // Configure sets the view information
@@ -177,6 +200,24 @@ func (v *View) RenderSingle(w http.ResponseWriter) {
 	// Save the template collection
 	tc := templates
 
+	// Get session
+	sess := session.Instance(v.request)
+
+	// Get the flashes for the template
+	if flashes := sess.Flashes(); len(flashes) > 0 {
+		v.Vars["flashes"] = make([]Flash, len(flashes))
+		for i, f := range flashes {
+			switch f.(type) {
+			case Flash:
+				v.Vars["flashes"].([]Flash)[i] = f.(Flash)
+			default:
+				v.Vars["flashes"].([]Flash)[i] = Flash{f.(string), "alert-box"}
+			}
+
+		}
+		sess.Save(v.request, w)
+	}
+
 	// Display the content to the screen
 	err = tc.Funcs(pc).ExecuteTemplate(w, v.Name+"."+v.Extension, v.Vars)
 
@@ -235,6 +276,24 @@ func (v *View) Render(w http.ResponseWriter) {
 		tc = templates
 	}
 
+	// Get session
+	sess := session.Instance(v.request)
+
+	// Get the flashes for the template
+	if flashes := sess.Flashes(); len(flashes) > 0 {
+		v.Vars["flashes"] = make([]Flash, len(flashes))
+		for i, f := range flashes {
+			switch f.(type) {
+			case Flash:
+				v.Vars["flashes"].([]Flash)[i] = f.(Flash)
+			default:
+				v.Vars["flashes"].([]Flash)[i] = Flash{f.(string), "alert-box"}
+			}
+
+		}
+		sess.Save(v.request, w)
+	}
+
 	// Display the content to the screen
 	err := tc.Funcs(pc).ExecuteTemplate(w, rootTemplate+"."+v.Extension, v.Vars)
 
@@ -252,6 +311,47 @@ func Validate(req *http.Request, required []string) (bool, string) {
 	}
 
 	return true, ""
+}
+
+// SendFlashes allows retrieval of flash messages for using with Ajax
+func (v *View) SendFlashes(w http.ResponseWriter) {
+	// Get session
+	sess := session.Instance(v.request)
+
+	flashes := peekFlashes(w, v.request)
+	sess.Save(v.request, w)
+
+	js, err := json.Marshal(flashes)
+	if err != nil {
+		http.Error(w, "JSON Error: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(js)
+}
+
+func peekFlashes(w http.ResponseWriter, r *http.Request) []Flash {
+	// Get session
+	sess := session.Instance(r)
+
+	var v []Flash
+
+	// Get the flashes for the template
+	if flashes := sess.Flashes(); len(flashes) > 0 {
+		v = make([]Flash, len(flashes))
+		for i, f := range flashes {
+			switch f.(type) {
+			case Flash:
+				v[i] = f.(Flash)
+			default:
+				v[i] = Flash{f.(string), "alert-box"}
+			}
+
+		}
+	}
+
+	return v
 }
 
 // Repopulate updates the dst map so the form fields can be refilled

@@ -1,10 +1,10 @@
 {
 	"Session": {
 		"SecretKey": "@r4B?EThaSEh_drudR7P_hub=s#s2Pah",
-		"Name": "distsysproject",
+		"Name": "chirper",
 		"Options": {
 			"Path": "/",
-			"Domain": "",
+			"Domain": "localhost",
 			"MaxAge": 28800,
 			"Secure": false,
 			"HttpOnly": true
@@ -13,8 +13,8 @@
 	"Template": {
 		"Root": "base",
 		"Children": [
-			"partial/menu",
-			"partial/footer"
+			"extras/menu",
+			"extras/footer"
 		]
 	},
 	"View": {

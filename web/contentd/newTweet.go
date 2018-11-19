@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/distsys-project/web/contentd/contentdpb"
+	"github.com/theryecatcher/chirper/web/contentd/contentdpb"
 )
 
 func (cnt *Contentd) NewTweet(ctx context.Context, req *contentdpb.NewTweetRequest) (*contentdpb.NewTweetResponse, error) {

@@ -1,27 +1,29 @@
-package storage
+package contentstorage
 
 import (
 	"context"
 	"errors"
+	"fmt"
+	"log"
+	"sort"
 	"sync"
 
 	"github.com/google/uuid"
-
-	"github.com/distsys-project/web/contentd/contentdpb"
+	"github.com/theryecatcher/chirper/web/contentd/contentdpb"
 )
 
 // DummyStorage is an in-memory implementation
 // of the Storage interface, which is used for unit-testing
 // functions that depend on a "real" implementation of Storage.
+// UID : TID , Tweet
 type DummyStorage struct {
-	tweets map[string]*contentdpb.Tweet
-
-	mut sync.Mutex
+	tweets map[string]map[string]*contentdpb.Tweet
+	mut    sync.Mutex
 }
 
 func NewDummyStorage() *DummyStorage {
 	return &DummyStorage{
-		tweets: make(map[string]*contentdpb.Tweet),
+		tweets: make(map[string]map[string]*contentdpb.Tweet),
 		mut:    sync.Mutex{},
 	}
 }
@@ -34,16 +36,20 @@ func (ds *DummyStorage) NewTweet(ctx context.Context, tweet *contentdpb.NewTweet
 		ds.mut.Lock()
 		defer ds.mut.Unlock()
 
+		if ds.tweets[tweet.PosterUID] == nil {
+			ds.tweets[tweet.PosterUID] = make(map[string]*contentdpb.Tweet)
+		}
+
 		TID := uuid.New().String()
 		for {
-			if _, exists := ds.tweets[TID]; exists {
+			if _, exists := ds.tweets[tweet.PosterUID][TID]; exists {
 				TID = uuid.New().String()
 			} else {
 				break
 			}
 		}
 
-		ds.tweets[TID] = &contentdpb.Tweet{
+		ds.tweets[tweet.PosterUID][TID] = &contentdpb.Tweet{
 			TID:       TID,
 			Timestamp: tweet.Timestamp,
 			Content:   tweet.Content,
@@ -63,7 +69,7 @@ func (ds *DummyStorage) NewTweet(ctx context.Context, tweet *contentdpb.NewTweet
 		ds.mut.Lock()
 		defer ds.mut.Unlock()
 
-		delete(ds.tweets, TID)
+		delete(ds.tweets[tweet.PosterUID], TID)
 		return ctx.Err()
 	}
 }
@@ -77,12 +83,11 @@ func (ds *DummyStorage) GetTweet(ctx context.Context, TID string) (*contentdpb.T
 	go func() {
 		ds.mut.Lock()
 		defer ds.mut.Unlock()
-		tweet, exists := ds.tweets[TID]
+		tweet, exists := ds.tweets[TID][TID]
 		if !exists {
 			oops <- errors.New("Tweet could not be found")
 			return
 		}
-
 		result <- tweet
 	}()
 
@@ -90,6 +95,75 @@ func (ds *DummyStorage) GetTweet(ctx context.Context, TID string) (*contentdpb.T
 	select {
 	case res := <-result:
 		return res, nil
+	case err := <-oops:
+		return nil, err
+	case <-ctx.Done():
+		return nil, ctx.Err()
+	}
+}
+
+// For Sorting Logic
+type timeSortedTweets []*contentdpb.Tweet
+
+func (t timeSortedTweets) Len() int {
+	return len(t)
+}
+
+func (t timeSortedTweets) Less(i, j int) bool {
+	return t[i].Timestamp > t[j].Timestamp
+}
+
+func (t timeSortedTweets) Swap(i, j int) {
+	t[i], t[j] = t[j], t[i]
+}
+
+// GetTweetsByUser returns tweets given the PosterUID's
+func (ds *DummyStorage) GetTweetsByUser(ctx context.Context, UID []string) ([]*contentdpb.Tweet, error) {
+	result := make(chan map[string]*contentdpb.Tweet)
+	tweets := make(timeSortedTweets, 0)
+	done := make(chan bool)
+	tweetsNotFound := make(chan error)
+	oops := make(chan error)
+
+	fmt.Println(UID)
+
+	for _, userID := range UID {
+		go func() {
+			tweetMap, exists := ds.tweets[userID]
+			if !exists {
+				tweetsNotFound <- errors.New("User " + userID + "'s Content could not be found")
+				return
+			}
+			result <- tweetMap
+		}()
+	}
+
+	go func() {
+		count := 0
+		for {
+			select {
+			case res := <-result:
+				for _, tweet := range res {
+					tweets = append(tweets, tweet)
+				}
+				count++
+			case err := <-tweetsNotFound:
+				log.Println(err)
+				count++
+			}
+			if count == len(UID) {
+				break
+			}
+		}
+		done <- true
+		return
+	}()
+
+	// Respect the context
+	select {
+	case <-done:
+		sort.Sort(tweets)
+		return tweets, nil
 	case err := <-oops:
 		return nil, err
 	case <-ctx.Done():

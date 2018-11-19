@@ -5,6 +5,7 @@ import "contentd.proto";
 service Contentd {
   rpc NewTweet (NewTweetRequest) returns (NewTweetResponse);
   rpc GetTweet (GetTweetRequest) returns (GetTweetResponse);
+  rpc GetTweetsByUser (GetTweetsByUserRequest) returns (GetTweetsByUserResponse);
 }
 
 message NewTweetRequest {
@@ -21,3 +22,12 @@ message GetTweetRequest {
 message GetTweetResponse {
   contentd.Tweet Tweet = 1;
 }
+
+message GetTweetsByUserRequest {
+  repeated string UID = 1;
+}
+
+message GetTweetsByUserResponse {
+  repeated contentd.Tweet Tweets = 1;
+}
+// Check usage of stream.
