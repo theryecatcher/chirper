@@ -1,4 +1,6 @@
-# chirper
+[![Build Status](https://www.travis-ci.com/theryecatcher/chirper.svg?token=shEHxWnqj4LyQxYpERrT&branch=master)](https://www.travis-ci.com/theryecatcher/chirper)
+
+<h1 align="center">chirper</h1>
 Twitter clone for Ditsributed Systems Course
 
 ### Environment
