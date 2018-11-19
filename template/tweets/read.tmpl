@@ -1,0 +1,45 @@
+{{define "title"}}Tweets{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+<div class="container">
+	<div class="page-header">
+		<h1>{{.name}}'s Timeline</h1>
+	</div>
+	<p>
+		<a title="Post Tweet" class="btn btn-primary" role="button" href="{{$.BaseURI}}tweets/create">
+			<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Post Tweet
+		</a>
+	</p>
+	
+	<div class = "col-md-7">
+		{{range $n := .tweets}}
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p>{{.Content}}</p>
+					<span class="pull-right" style="margin-top: 14px;">{{.PosterUID}} {{.Timestamp | PRETTYTIME}}</span>
+				</div>
+			</div>
+		{{end}}
+	</div>
+		
+	<div class = "col-md-5">
+		{{range $n := .followers}}
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p>{{.Name}}</p>
+					<div style="display: inline-block;">
+						{{ if .Followed }}
+						{{ else }}
+							<a title="Follow" class="btn btn-primary" role="button" href="{{$.BaseURI}}follow/follow/{{.UID}}">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Follow
+						{{ end }}
+						</a>
+					</div>
+				</div>
+			</div>
+		{{end}}
+	</div>
+	{{template "footer" .}}
+</div>
+{{end}}
+{{define "foot"}}{{end}}

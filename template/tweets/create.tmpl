@@ -1,0 +1,29 @@
+{{define "title"}}Post Tweet{{end}}
+{{define "head"}}{{end}}
+{{define "content"}}
+
+<div class="container">
+	<div class="page-header">
+		<h1>{{template "title" .}}</h1>
+	</div>
+	
+	<form id="form" method="post">
+		<div class="form-group">
+			<label for="tweet">Tweet</label>
+			<div><textarea rows="5" class="form-control" id="tweet" name="tweet" placeholder="Tweet here..." value="" /></textarea></div>
+		</div>
+		
+		<a title="Save" class="btn btn-success" role="submit" onclick="document.getElementById('form').submit();">
+			<span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Save
+		</a>
+		<a title="Back to Timeline" class="btn btn-danger" role="button" href="{{$.BaseURI}}tweets">
+			<span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> Back
+		</a>
+		
+	</form>
+	
+	{{template "footer" .}}
+</div>
+
+{{end}}
+{{define "foot"}}{{end}}
