@@ -7,8 +7,8 @@ install: true
 notifications:
   emails: false
 before_script:
-  - go get golang/net
-  - go get golang.org/sys/unix
+  - go get github.com/golang/net
+  - go get github.com/golang.org/sys/unix
 script:
   - go test -race -coverprofile=coverage.txt -covermode=atomic ./...
 after_success:
