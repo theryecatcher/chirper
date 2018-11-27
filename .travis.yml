@@ -1,6 +1,8 @@
 sudo: false
 
 language: go
+go:
+- tip # The latest version of Go.
 install: true
 notifications:
   emails: false

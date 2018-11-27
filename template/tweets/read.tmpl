@@ -29,6 +29,8 @@
 					<p>{{.Name}}</p>
 					<div style="display: inline-block;">
 						{{ if .Followed }}
+							<a title="UnFollow" class="btn btn-danger" role="button" href="{{$.BaseURI}}follow/unfollow/{{.UID}}">
+								<span class="glyphicon glyphicon glyphicon-minus" aria-hidden="true"></span> UnFollow
 						{{ else }}
 							<a title="Follow" class="btn btn-primary" role="button" href="{{$.BaseURI}}follow/follow/{{.UID}}">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Follow

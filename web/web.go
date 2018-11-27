@@ -67,6 +67,7 @@ func New(cfg *Config) (*Web, error) {
 	r.POST("/tweets/create", ws.TweetsCreatePost)
 	// Follow/Unfollow
 	r.GET("/follow/follow/:uid", ws.FollowGet)
+	r.GET("/follow/unfollow/:uid", ws.UnFollowGet)
 	// r.GET("/follow/unfollow/:id", ws.FollowGet)
 
 	return ws, nil
