@@ -12,7 +12,7 @@
 *.out
 
 # Don't checkin vendor folder taken care by Go Mod
-vendor/
+vendor/*
 
 cmd/web/web
 cmd/backendCntD/backendCntD
