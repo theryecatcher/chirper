@@ -5,8 +5,8 @@ import (
 	"log"
 	"net"
 
-	"github.com/theryecatcher/chirper/web/contentd"
-	"github.com/theryecatcher/chirper/web/contentd/contentdpb"
+	"github.com/theryecatcher/chirper/contentd"
+	"github.com/theryecatcher/chirper/contentd/contentdpb"
 
 	"google.golang.org/grpc"
 )

@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+import "contentd.proto";
+
+service Contentd {
+  rpc NewTweet (NewTweetRequest) returns (NewTweetResponse);
+  rpc GetTweet (GetTweetRequest) returns (GetTweetResponse);
+  rpc GetTweetsByUser (GetTweetsByUserRequest) returns (GetTweetsByUserResponse);
+}
+
+message NewTweetRequest {
+  string Content = 1;
+  string PosterUID = 2;
+}
+
+message NewTweetResponse {}
+
+message GetTweetRequest {
+  string TID = 1;
+}
+
+message GetTweetResponse {
+  contentd.Tweet Tweet = 1;
+}
+
+message GetTweetsByUserRequest {
+  repeated string UID = 1;
+}
+
+message GetTweetsByUserResponse {
+  repeated contentd.Tweet Tweets = 1;
+}
+// Check usage of stream.
