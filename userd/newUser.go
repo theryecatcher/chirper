@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/theryecatcher/chirper/web/userd/userdpb"
+	"github.com/theryecatcher/chirper/userd/userdpb"
 )
 
 func (usr *Userd) NewUser(ctx context.Context, req *userdpb.NewUserRequest) (*userdpb.NewUserResponse, error) {

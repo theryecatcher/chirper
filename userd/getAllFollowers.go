@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	"github.com/theryecatcher/chirper/web/userd/userdpb"
+	"github.com/theryecatcher/chirper/userd/userdpb"
 )
 
 // GetAllFollowers Function to retuurn all users with Follower details

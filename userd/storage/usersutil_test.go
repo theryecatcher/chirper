@@ -5,7 +5,7 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/theryecatcher/chirper/web/userd/userdpb"
+	"github.com/theryecatcher/chirper/userd/userdpb"
 )
 
 func TestDummyStorage_NewUserParallel(t *testing.T) {

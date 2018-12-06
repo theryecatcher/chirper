@@ -1,7 +1,7 @@
 package userd
 
 import (
-	"github.com/theryecatcher/chirper/web/userd/storage"
+	"github.com/theryecatcher/chirper/userd/storage"
 )
 
 type Userd struct {

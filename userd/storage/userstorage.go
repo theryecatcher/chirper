@@ -5,7 +5,7 @@ package userstorage
 import (
 	"context"
 
-	"github.com/theryecatcher/chirper/web/userd/userdpb"
+	"github.com/theryecatcher/chirper/userd/userdpb"
 )
 
 // Storage is an interface for persisting users on behalf of the User service

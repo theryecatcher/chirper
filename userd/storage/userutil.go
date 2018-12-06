@@ -8,7 +8,7 @@ import (
 	"sync"
 
 	"github.com/google/uuid"
-	"github.com/theryecatcher/chirper/web/userd/userdpb"
+	"github.com/theryecatcher/chirper/userd/userdpb"
 )
 
 // DummyUserStorage is an in-memory implementation
