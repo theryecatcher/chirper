@@ -12,7 +12,8 @@ import (
 type Storage interface {
 	// Commands
 	NewUser(ctx context.Context, user *userdpb.NewUser) error
-	FollowUser(ctx context.Context, UID string, FollowerUID string) error
+	FollowUser(ctx context.Context, UID string, FollowingUID string) error
+	UnFollowUser(ctx context.Context, UID string, FollowingUID string) error
 	// Queries
 	GetUser(ctx context.Context, UID string) (*userdpb.User, error)
 	ValidateUser(ctx context.Context, user *userdpb.CheckUser) (*userdpb.User, error)

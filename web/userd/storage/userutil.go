@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log"
 	"sync"
 
 	"github.com/google/uuid"
@@ -18,6 +19,7 @@ type DummyUserStorage struct {
 	mut   sync.Mutex
 }
 
+// NewDummyUserStorage Default Storage Interfacce for In Memory Implementation
 func NewDummyUserStorage() *DummyUserStorage {
 	return &DummyUserStorage{
 		users: make(map[string]*userdpb.User),
@@ -47,13 +49,12 @@ func (ds *DummyUserStorage) NewUser(ctx context.Context, user *userdpb.NewUser) 
 		}
 		var init []string
 		ds.users[UID] = &userdpb.User{
-			UID:         UID,
-			Name:        user.Name,
-			Email:       user.Email,
-			Password:    user.Password,
-			FollowerUID: init,
+			UID:          UID,
+			Name:         user.Name,
+			Email:        user.Email,
+			Password:     user.Password,
+			FollowingUID: init,
 		}
-		fmt.Println(ds.users)
 		done <- UID
 	}()
 
@@ -144,7 +145,7 @@ func (ds *DummyUserStorage) ValidateUser(ctx context.Context, chkUser *userdpb.C
 }
 
 // FollowUser follows user
-func (ds *DummyUserStorage) FollowUser(ctx context.Context, UID string, FollowerUID string) error {
+func (ds *DummyUserStorage) FollowUser(ctx context.Context, UID string, FollowingUID string) error {
 
 	//fmt.Println(ds.users)
 
@@ -159,9 +160,8 @@ func (ds *DummyUserStorage) FollowUser(ctx context.Context, UID string, Follower
 		if !exists {
 			oops <- errors.New("User not found")
 			return
-		} else {
-			user.FollowerUID = append(user.FollowerUID, FollowerUID)
 		}
+		user.FollowingUID = append(user.FollowingUID, FollowingUID)
 		result <- true
 	}()
 
@@ -185,6 +185,7 @@ func contains(s []string, item string) bool {
 	return false
 }
 
+// GetAllFollowers Method to populate all followers
 func (ds *DummyUserStorage) GetAllFollowers(ctx context.Context, UID string) ([]*userdpb.FollowerDetails, error) {
 
 	fmt.Println("in test get all followers")
@@ -195,8 +196,8 @@ func (ds *DummyUserStorage) GetAllFollowers(ctx context.Context, UID string) ([]
 
 	// Go fetch the user
 	go func() {
-		// ds.mut.Lock()
-		// defer ds.mut.Unlock()
+		ds.mut.Lock()
+		defer ds.mut.Unlock()
 		user, exists := ds.users[UID]
 		if !exists {
 			oops <- errors.New("User not found")
@@ -206,7 +207,7 @@ func (ds *DummyUserStorage) GetAllFollowers(ctx context.Context, UID string) ([]
 					followers = append(followers, &userdpb.FollowerDetails{
 						Name:     v.Name,
 						UID:      k,
-						Followed: contains(user.FollowerUID, v.UID),
+						Followed: contains(user.FollowingUID, v.UID),
 					})
 				}
 			}
@@ -222,5 +223,43 @@ func (ds *DummyUserStorage) GetAllFollowers(ctx context.Context, UID string) ([]
 		return nil, err
 	case <-ctx.Done():
 		return nil, ctx.Err()
+	}
+}
+
+//UnFollowUser Unfollows a user
+func (ds *DummyUserStorage) UnFollowUser(ctx context.Context, UID string, FollowedUID string) error {
+
+	result := make(chan bool)
+	oops := make(chan error)
+
+	log.Println(FollowedUID)
+	log.Println(UID)
+
+	// Go fetch the user
+	go func() {
+		ds.mut.Lock()
+		defer ds.mut.Unlock()
+		user, exists := ds.users[UID]
+		if !exists {
+			oops <- errors.New("User not found")
+			return
+		}
+		for k, v := range user.FollowingUID {
+			if v == FollowedUID {
+				user.FollowingUID = append(user.FollowingUID[:k], user.FollowingUID[k+1:]...)
+				break
+			}
+		}
+		result <- true
+	}()
+
+	// Respect the context
+	select {
+	case <-result:
+		return nil
+	case err := <-oops:
+		return err
+	case <-ctx.Done():
+		return ctx.Err()
 	}
 }

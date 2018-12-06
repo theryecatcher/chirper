@@ -10,7 +10,7 @@ import (
 func (usr *Userd) FollowUser(ctx context.Context, req *userdpb.FollowUserRequest) (*userdpb.FollowUserResponse, error) {
 
 	log.Println("Userd: follow user")
-	err := usr.usrStrg.FollowUser(ctx, req.UID, req.FollowerUID)
+	err := usr.usrStrg.FollowUser(ctx, req.UID, req.FollowingUID)
 
 	return &userdpb.FollowUserResponse{}, err
 }

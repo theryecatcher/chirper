@@ -3,12 +3,12 @@
 
 package userdpb
 
-import proto "github.com/golang/protobuf/proto"
-import fmt "fmt"
-import math "math"
-
 import (
-	context "golang.org/x/net/context"
+	context "context"
+	fmt "fmt"
+	math "math"
+
+	proto "github.com/golang/protobuf/proto"
 	grpc "google.golang.org/grpc"
 )
 
@@ -17,16 +17,45 @@ var _ = proto.Marshal
 var _ = fmt.Errorf
 var _ = math.Inf
 
+// This is a compile-time assertion to ensure that this generated file
+// is compatible with the proto package it is being compiled against.
+// A compilation error at this line likely means your copy of the
+// proto package needs to be updated.
+const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
+
 type NewUserRequest struct {
-	Name     string `protobuf:"bytes,1,opt,name=Name,json=name" json:"Name,omitempty"`
-	Email    string `protobuf:"bytes,2,opt,name=Email,json=email" json:"Email,omitempty"`
-	Password string `protobuf:"bytes,3,opt,name=Password,json=password" json:"Password,omitempty"`
+	Name                 string   `protobuf:"bytes,1,opt,name=Name,proto3" json:"Name,omitempty"`
+	Email                string   `protobuf:"bytes,2,opt,name=Email,proto3" json:"Email,omitempty"`
+	Password             string   `protobuf:"bytes,3,opt,name=Password,proto3" json:"Password,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *NewUserRequest) Reset()                    { *m = NewUserRequest{} }
-func (m *NewUserRequest) String() string            { return proto.CompactTextString(m) }
-func (*NewUserRequest) ProtoMessage()               {}
-func (*NewUserRequest) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{0} }
+func (m *NewUserRequest) Reset()         { *m = NewUserRequest{} }
+func (m *NewUserRequest) String() string { return proto.CompactTextString(m) }
+func (*NewUserRequest) ProtoMessage()    {}
+func (*NewUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{0}
+}
+
+func (m *NewUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_NewUserRequest.Unmarshal(m, b)
+}
+func (m *NewUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_NewUserRequest.Marshal(b, m, deterministic)
+}
+func (m *NewUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_NewUserRequest.Merge(m, src)
+}
+func (m *NewUserRequest) XXX_Size() int {
+	return xxx_messageInfo_NewUserRequest.Size(m)
+}
+func (m *NewUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_NewUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_NewUserRequest proto.InternalMessageInfo
 
 func (m *NewUserRequest) GetName() string {
 	if m != nil {
@@ -50,21 +79,67 @@ func (m *NewUserRequest) GetPassword() string {
 }
 
 type NewUserResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *NewUserResponse) Reset()                    { *m = NewUserResponse{} }
-func (m *NewUserResponse) String() string            { return proto.CompactTextString(m) }
-func (*NewUserResponse) ProtoMessage()               {}
-func (*NewUserResponse) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{1} }
+func (m *NewUserResponse) Reset()         { *m = NewUserResponse{} }
+func (m *NewUserResponse) String() string { return proto.CompactTextString(m) }
+func (*NewUserResponse) ProtoMessage()    {}
+func (*NewUserResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{1}
+}
+
+func (m *NewUserResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_NewUserResponse.Unmarshal(m, b)
+}
+func (m *NewUserResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_NewUserResponse.Marshal(b, m, deterministic)
+}
+func (m *NewUserResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_NewUserResponse.Merge(m, src)
+}
+func (m *NewUserResponse) XXX_Size() int {
+	return xxx_messageInfo_NewUserResponse.Size(m)
+}
+func (m *NewUserResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_NewUserResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_NewUserResponse proto.InternalMessageInfo
 
 type GetUserRequest struct {
-	UID string `protobuf:"bytes,1,opt,name=UID,json=uID" json:"UID,omitempty"`
+	UID                  string   `protobuf:"bytes,1,opt,name=UID,proto3" json:"UID,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetUserRequest) Reset()                    { *m = GetUserRequest{} }
-func (m *GetUserRequest) String() string            { return proto.CompactTextString(m) }
-func (*GetUserRequest) ProtoMessage()               {}
-func (*GetUserRequest) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{2} }
+func (m *GetUserRequest) Reset()         { *m = GetUserRequest{} }
+func (m *GetUserRequest) String() string { return proto.CompactTextString(m) }
+func (*GetUserRequest) ProtoMessage()    {}
+func (*GetUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{2}
+}
+
+func (m *GetUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetUserRequest.Unmarshal(m, b)
+}
+func (m *GetUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetUserRequest.Marshal(b, m, deterministic)
+}
+func (m *GetUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetUserRequest.Merge(m, src)
+}
+func (m *GetUserRequest) XXX_Size() int {
+	return xxx_messageInfo_GetUserRequest.Size(m)
+}
+func (m *GetUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetUserRequest proto.InternalMessageInfo
 
 func (m *GetUserRequest) GetUID() string {
 	if m != nil {
@@ -74,13 +149,36 @@ func (m *GetUserRequest) GetUID() string {
 }
 
 type GetUserResponse struct {
-	User *User `protobuf:"bytes,1,opt,name=User,json=user" json:"User,omitempty"`
+	User                 *User    `protobuf:"bytes,1,opt,name=User,proto3" json:"User,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetUserResponse) Reset()                    { *m = GetUserResponse{} }
-func (m *GetUserResponse) String() string            { return proto.CompactTextString(m) }
-func (*GetUserResponse) ProtoMessage()               {}
-func (*GetUserResponse) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{3} }
+func (m *GetUserResponse) Reset()         { *m = GetUserResponse{} }
+func (m *GetUserResponse) String() string { return proto.CompactTextString(m) }
+func (*GetUserResponse) ProtoMessage()    {}
+func (*GetUserResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{3}
+}
+
+func (m *GetUserResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetUserResponse.Unmarshal(m, b)
+}
+func (m *GetUserResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetUserResponse.Marshal(b, m, deterministic)
+}
+func (m *GetUserResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetUserResponse.Merge(m, src)
+}
+func (m *GetUserResponse) XXX_Size() int {
+	return xxx_messageInfo_GetUserResponse.Size(m)
+}
+func (m *GetUserResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetUserResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetUserResponse proto.InternalMessageInfo
 
 func (m *GetUserResponse) GetUser() *User {
 	if m != nil {
@@ -90,14 +188,37 @@ func (m *GetUserResponse) GetUser() *User {
 }
 
 type ValidateUserRequest struct {
-	Email    string `protobuf:"bytes,1,opt,name=Email,json=email" json:"Email,omitempty"`
-	Password string `protobuf:"bytes,2,opt,name=Password,json=password" json:"Password,omitempty"`
+	Email                string   `protobuf:"bytes,1,opt,name=Email,proto3" json:"Email,omitempty"`
+	Password             string   `protobuf:"bytes,2,opt,name=Password,proto3" json:"Password,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ValidateUserRequest) Reset()                    { *m = ValidateUserRequest{} }
-func (m *ValidateUserRequest) String() string            { return proto.CompactTextString(m) }
-func (*ValidateUserRequest) ProtoMessage()               {}
-func (*ValidateUserRequest) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{4} }
+func (m *ValidateUserRequest) Reset()         { *m = ValidateUserRequest{} }
+func (m *ValidateUserRequest) String() string { return proto.CompactTextString(m) }
+func (*ValidateUserRequest) ProtoMessage()    {}
+func (*ValidateUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{4}
+}
+
+func (m *ValidateUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ValidateUserRequest.Unmarshal(m, b)
+}
+func (m *ValidateUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ValidateUserRequest.Marshal(b, m, deterministic)
+}
+func (m *ValidateUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ValidateUserRequest.Merge(m, src)
+}
+func (m *ValidateUserRequest) XXX_Size() int {
+	return xxx_messageInfo_ValidateUserRequest.Size(m)
+}
+func (m *ValidateUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ValidateUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ValidateUserRequest proto.InternalMessageInfo
 
 func (m *ValidateUserRequest) GetEmail() string {
 	if m != nil {
@@ -114,14 +235,37 @@ func (m *ValidateUserRequest) GetPassword() string {
 }
 
 type FollowUserRequest struct {
-	UID         string `protobuf:"bytes,1,opt,name=UID,json=uID" json:"UID,omitempty"`
-	FollowerUID string `protobuf:"bytes,2,opt,name=FollowerUID,json=followerUID" json:"FollowerUID,omitempty"`
+	UID                  string   `protobuf:"bytes,1,opt,name=UID,proto3" json:"UID,omitempty"`
+	FollowingUID         string   `protobuf:"bytes,2,opt,name=FollowingUID,proto3" json:"FollowingUID,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *FollowUserRequest) Reset()                    { *m = FollowUserRequest{} }
-func (m *FollowUserRequest) String() string            { return proto.CompactTextString(m) }
-func (*FollowUserRequest) ProtoMessage()               {}
-func (*FollowUserRequest) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{5} }
+func (m *FollowUserRequest) Reset()         { *m = FollowUserRequest{} }
+func (m *FollowUserRequest) String() string { return proto.CompactTextString(m) }
+func (*FollowUserRequest) ProtoMessage()    {}
+func (*FollowUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{5}
+}
+
+func (m *FollowUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FollowUserRequest.Unmarshal(m, b)
+}
+func (m *FollowUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FollowUserRequest.Marshal(b, m, deterministic)
+}
+func (m *FollowUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FollowUserRequest.Merge(m, src)
+}
+func (m *FollowUserRequest) XXX_Size() int {
+	return xxx_messageInfo_FollowUserRequest.Size(m)
+}
+func (m *FollowUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_FollowUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FollowUserRequest proto.InternalMessageInfo
 
 func (m *FollowUserRequest) GetUID() string {
 	if m != nil {
@@ -130,29 +274,75 @@ func (m *FollowUserRequest) GetUID() string {
 	return ""
 }
 
-func (m *FollowUserRequest) GetFollowerUID() string {
+func (m *FollowUserRequest) GetFollowingUID() string {
 	if m != nil {
-		return m.FollowerUID
+		return m.FollowingUID
 	}
 	return ""
 }
 
 type FollowUserResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *FollowUserResponse) Reset()                    { *m = FollowUserResponse{} }
-func (m *FollowUserResponse) String() string            { return proto.CompactTextString(m) }
-func (*FollowUserResponse) ProtoMessage()               {}
-func (*FollowUserResponse) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{6} }
+func (m *FollowUserResponse) Reset()         { *m = FollowUserResponse{} }
+func (m *FollowUserResponse) String() string { return proto.CompactTextString(m) }
+func (*FollowUserResponse) ProtoMessage()    {}
+func (*FollowUserResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{6}
+}
+
+func (m *FollowUserResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FollowUserResponse.Unmarshal(m, b)
+}
+func (m *FollowUserResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FollowUserResponse.Marshal(b, m, deterministic)
+}
+func (m *FollowUserResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FollowUserResponse.Merge(m, src)
+}
+func (m *FollowUserResponse) XXX_Size() int {
+	return xxx_messageInfo_FollowUserResponse.Size(m)
+}
+func (m *FollowUserResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_FollowUserResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FollowUserResponse proto.InternalMessageInfo
 
 type FollowerDetailsRequest struct {
-	UID string `protobuf:"bytes,1,opt,name=UID,json=uID" json:"UID,omitempty"`
+	UID                  string   `protobuf:"bytes,1,opt,name=UID,proto3" json:"UID,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *FollowerDetailsRequest) Reset()                    { *m = FollowerDetailsRequest{} }
-func (m *FollowerDetailsRequest) String() string            { return proto.CompactTextString(m) }
-func (*FollowerDetailsRequest) ProtoMessage()               {}
-func (*FollowerDetailsRequest) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{7} }
+func (m *FollowerDetailsRequest) Reset()         { *m = FollowerDetailsRequest{} }
+func (m *FollowerDetailsRequest) String() string { return proto.CompactTextString(m) }
+func (*FollowerDetailsRequest) ProtoMessage()    {}
+func (*FollowerDetailsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{7}
+}
+
+func (m *FollowerDetailsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FollowerDetailsRequest.Unmarshal(m, b)
+}
+func (m *FollowerDetailsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FollowerDetailsRequest.Marshal(b, m, deterministic)
+}
+func (m *FollowerDetailsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FollowerDetailsRequest.Merge(m, src)
+}
+func (m *FollowerDetailsRequest) XXX_Size() int {
+	return xxx_messageInfo_FollowerDetailsRequest.Size(m)
+}
+func (m *FollowerDetailsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_FollowerDetailsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FollowerDetailsRequest proto.InternalMessageInfo
 
 func (m *FollowerDetailsRequest) GetUID() string {
 	if m != nil {
@@ -162,13 +352,36 @@ func (m *FollowerDetailsRequest) GetUID() string {
 }
 
 type FollowerDetailsResponse struct {
-	Followers []*FollowerDetails `protobuf:"bytes,1,rep,name=Followers,json=followers" json:"Followers,omitempty"`
+	Followers            []*FollowerDetails `protobuf:"bytes,1,rep,name=Followers,proto3" json:"Followers,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}           `json:"-"`
+	XXX_unrecognized     []byte             `json:"-"`
+	XXX_sizecache        int32              `json:"-"`
 }
 
-func (m *FollowerDetailsResponse) Reset()                    { *m = FollowerDetailsResponse{} }
-func (m *FollowerDetailsResponse) String() string            { return proto.CompactTextString(m) }
-func (*FollowerDetailsResponse) ProtoMessage()               {}
-func (*FollowerDetailsResponse) Descriptor() ([]byte, []int) { return fileDescriptor1, []int{8} }
+func (m *FollowerDetailsResponse) Reset()         { *m = FollowerDetailsResponse{} }
+func (m *FollowerDetailsResponse) String() string { return proto.CompactTextString(m) }
+func (*FollowerDetailsResponse) ProtoMessage()    {}
+func (*FollowerDetailsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{8}
+}
+
+func (m *FollowerDetailsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_FollowerDetailsResponse.Unmarshal(m, b)
+}
+func (m *FollowerDetailsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_FollowerDetailsResponse.Marshal(b, m, deterministic)
+}
+func (m *FollowerDetailsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_FollowerDetailsResponse.Merge(m, src)
+}
+func (m *FollowerDetailsResponse) XXX_Size() int {
+	return xxx_messageInfo_FollowerDetailsResponse.Size(m)
+}
+func (m *FollowerDetailsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_FollowerDetailsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_FollowerDetailsResponse proto.InternalMessageInfo
 
 func (m *FollowerDetailsResponse) GetFollowers() []*FollowerDetails {
 	if m != nil {
@@ -176,6 +389,84 @@ func (m *FollowerDetailsResponse) GetFollowers() []*FollowerDetails {
 	}
 	return nil
 }
+
+type UnFollowUserRequest struct {
+	UID                  string   `protobuf:"bytes,1,opt,name=UID,proto3" json:"UID,omitempty"`
+	FollowedUID          string   `protobuf:"bytes,2,opt,name=FollowedUID,proto3" json:"FollowedUID,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UnFollowUserRequest) Reset()         { *m = UnFollowUserRequest{} }
+func (m *UnFollowUserRequest) String() string { return proto.CompactTextString(m) }
+func (*UnFollowUserRequest) ProtoMessage()    {}
+func (*UnFollowUserRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{9}
+}
+
+func (m *UnFollowUserRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UnFollowUserRequest.Unmarshal(m, b)
+}
+func (m *UnFollowUserRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UnFollowUserRequest.Marshal(b, m, deterministic)
+}
+func (m *UnFollowUserRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnFollowUserRequest.Merge(m, src)
+}
+func (m *UnFollowUserRequest) XXX_Size() int {
+	return xxx_messageInfo_UnFollowUserRequest.Size(m)
+}
+func (m *UnFollowUserRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnFollowUserRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UnFollowUserRequest proto.InternalMessageInfo
+
+func (m *UnFollowUserRequest) GetUID() string {
+	if m != nil {
+		return m.UID
+	}
+	return ""
+}
+
+func (m *UnFollowUserRequest) GetFollowedUID() string {
+	if m != nil {
+		return m.FollowedUID
+	}
+	return ""
+}
+
+type UnFollowUserResponse struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UnFollowUserResponse) Reset()         { *m = UnFollowUserResponse{} }
+func (m *UnFollowUserResponse) String() string { return proto.CompactTextString(m) }
+func (*UnFollowUserResponse) ProtoMessage()    {}
+func (*UnFollowUserResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_68a7ca558839fd2b, []int{10}
+}
+
+func (m *UnFollowUserResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UnFollowUserResponse.Unmarshal(m, b)
+}
+func (m *UnFollowUserResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UnFollowUserResponse.Marshal(b, m, deterministic)
+}
+func (m *UnFollowUserResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnFollowUserResponse.Merge(m, src)
+}
+func (m *UnFollowUserResponse) XXX_Size() int {
+	return xxx_messageInfo_UnFollowUserResponse.Size(m)
+}
+func (m *UnFollowUserResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnFollowUserResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UnFollowUserResponse proto.InternalMessageInfo
 
 func init() {
 	proto.RegisterType((*NewUserRequest)(nil), "NewUserRequest")
@@ -187,6 +478,39 @@ func init() {
 	proto.RegisterType((*FollowUserResponse)(nil), "FollowUserResponse")
 	proto.RegisterType((*FollowerDetailsRequest)(nil), "FollowerDetailsRequest")
 	proto.RegisterType((*FollowerDetailsResponse)(nil), "FollowerDetailsResponse")
+	proto.RegisterType((*UnFollowUserRequest)(nil), "UnFollowUserRequest")
+	proto.RegisterType((*UnFollowUserResponse)(nil), "UnFollowUserResponse")
+}
+
+func init() { proto.RegisterFile("userservice.proto", fileDescriptor_68a7ca558839fd2b) }
+
+var fileDescriptor_68a7ca558839fd2b = []byte{
+	// 393 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x8c, 0x53, 0x4f, 0x4f, 0xfa, 0x40,
+	0x10, 0x4d, 0xf9, 0xf3, 0xfb, 0xc9, 0x94, 0x50, 0x18, 0x2a, 0x34, 0xbd, 0x48, 0xf6, 0x44, 0x8c,
+	0xd9, 0x43, 0xfd, 0x73, 0xf1, 0x64, 0x82, 0x12, 0x2e, 0x68, 0x48, 0xe0, 0x5e, 0xed, 0xc6, 0x34,
+	0x59, 0x28, 0x76, 0x8b, 0x7c, 0x52, 0xbf, 0x8f, 0xe9, 0xee, 0x5a, 0xda, 0x52, 0x8c, 0xb7, 0xce,
+	0xcc, 0x9b, 0xd9, 0x37, 0xef, 0x4d, 0xa1, 0xb7, 0x13, 0x2c, 0x16, 0x2c, 0xfe, 0x0c, 0xdf, 0x18,
+	0xdd, 0xc6, 0x51, 0x12, 0xb9, 0x66, 0x9a, 0x0a, 0x54, 0x40, 0x56, 0xd0, 0x99, 0xb3, 0xfd, 0x52,
+	0xb0, 0x78, 0xc1, 0x3e, 0x76, 0x4c, 0x24, 0x88, 0xd0, 0x98, 0xfb, 0x6b, 0xe6, 0x18, 0x23, 0x63,
+	0xdc, 0x5a, 0xc8, 0x6f, 0xb4, 0xa1, 0xf9, 0xb8, 0xf6, 0x43, 0xee, 0xd4, 0x64, 0x52, 0x05, 0xe8,
+	0xc2, 0xd9, 0x8b, 0x2f, 0xc4, 0x3e, 0x8a, 0x03, 0xa7, 0x2e, 0x0b, 0x59, 0x4c, 0x7a, 0x60, 0x65,
+	0x73, 0xc5, 0x36, 0xda, 0x08, 0x46, 0x08, 0x74, 0xa6, 0x2c, 0xc9, 0x3f, 0xd5, 0x85, 0xfa, 0x72,
+	0x36, 0xd1, 0x2f, 0xa5, 0x9f, 0xc4, 0x03, 0x2b, 0xc3, 0xa8, 0x36, 0xbc, 0x80, 0x46, 0x1a, 0x4b,
+	0x94, 0xe9, 0x99, 0x54, 0xb1, 0x97, 0x10, 0x59, 0x20, 0x53, 0xe8, 0xaf, 0x7c, 0x1e, 0x06, 0x7e,
+	0xc2, 0xf2, 0xc3, 0x33, 0xce, 0xc6, 0x29, 0xce, 0xb5, 0x12, 0xe7, 0x19, 0xf4, 0x9e, 0x22, 0xce,
+	0xa3, 0xfd, 0xaf, 0x1c, 0x91, 0x40, 0x5b, 0xc1, 0xc2, 0xcd, 0x7b, 0x5a, 0x52, 0x63, 0x0a, 0x39,
+	0x62, 0x03, 0xe6, 0x47, 0x69, 0x05, 0x2e, 0x61, 0xa0, 0xb2, 0x2c, 0x9e, 0xb0, 0xc4, 0x0f, 0xb9,
+	0x38, 0xad, 0xc4, 0x33, 0x0c, 0x8f, 0xb0, 0x5a, 0x91, 0x1b, 0x68, 0xfd, 0x94, 0x84, 0x63, 0x8c,
+	0xea, 0x63, 0xd3, 0x1b, 0x68, 0x59, 0xca, 0x2d, 0x07, 0x20, 0x99, 0x41, 0x7f, 0xb9, 0xf9, 0xcb,
+	0x7e, 0x23, 0x30, 0x75, 0x57, 0x70, 0x58, 0x2f, 0x9f, 0x22, 0x03, 0xb0, 0x8b, 0xa3, 0x14, 0x31,
+	0xef, 0xab, 0x06, 0xcd, 0x34, 0x11, 0xe0, 0x15, 0xfc, 0xd7, 0xf6, 0xa3, 0x45, 0x8b, 0x07, 0xe6,
+	0x76, 0x69, 0xe9, 0x32, 0x52, 0xb4, 0x76, 0x1d, 0x2d, 0x5a, 0xbc, 0x11, 0xb7, 0x4b, 0xcb, 0x07,
+	0x71, 0x07, 0xed, 0xbc, 0xdf, 0x68, 0xd3, 0x0a, 0xfb, 0x2b, 0xfa, 0x6e, 0x01, 0x0e, 0x9c, 0x11,
+	0xe9, 0x91, 0x16, 0x6e, 0x9f, 0x1e, 0x2f, 0x85, 0x13, 0x79, 0x92, 0x0f, 0x9c, 0x67, 0x52, 0xe2,
+	0x90, 0x56, 0xdb, 0xe8, 0x3a, 0xf4, 0x94, 0x67, 0xf7, 0xd0, 0xce, 0x4b, 0x86, 0x36, 0xad, 0x30,
+	0xc3, 0x3d, 0xa7, 0x55, 0xba, 0xbe, 0xfe, 0x93, 0xff, 0xea, 0xf5, 0x77, 0x00, 0x00, 0x00, 0xff,
+	0xff, 0xf1, 0x10, 0xae, 0x81, 0xcd, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -197,14 +521,16 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// Client API for Userd service
-
+// UserdClient is the client API for Userd service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type UserdClient interface {
 	NewUser(ctx context.Context, in *NewUserRequest, opts ...grpc.CallOption) (*NewUserResponse, error)
 	GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	ValidateUser(ctx context.Context, in *ValidateUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error)
 	FollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*FollowUserResponse, error)
 	GetAllFollowers(ctx context.Context, in *FollowerDetailsRequest, opts ...grpc.CallOption) (*FollowerDetailsResponse, error)
+	UnFollowUser(ctx context.Context, in *UnFollowUserRequest, opts ...grpc.CallOption) (*UnFollowUserResponse, error)
 }
 
 type userdClient struct {
@@ -217,7 +543,7 @@ func NewUserdClient(cc *grpc.ClientConn) UserdClient {
 
 func (c *userdClient) NewUser(ctx context.Context, in *NewUserRequest, opts ...grpc.CallOption) (*NewUserResponse, error) {
 	out := new(NewUserResponse)
-	err := grpc.Invoke(ctx, "/Userd/NewUser", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/Userd/NewUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -226,7 +552,7 @@ func (c *userdClient) NewUser(ctx context.Context, in *NewUserRequest, opts ...g
 
 func (c *userdClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
 	out := new(GetUserResponse)
-	err := grpc.Invoke(ctx, "/Userd/GetUser", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/Userd/GetUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -235,7 +561,7 @@ func (c *userdClient) GetUser(ctx context.Context, in *GetUserRequest, opts ...g
 
 func (c *userdClient) ValidateUser(ctx context.Context, in *ValidateUserRequest, opts ...grpc.CallOption) (*GetUserResponse, error) {
 	out := new(GetUserResponse)
-	err := grpc.Invoke(ctx, "/Userd/ValidateUser", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/Userd/ValidateUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -244,7 +570,7 @@ func (c *userdClient) ValidateUser(ctx context.Context, in *ValidateUserRequest,
 
 func (c *userdClient) FollowUser(ctx context.Context, in *FollowUserRequest, opts ...grpc.CallOption) (*FollowUserResponse, error) {
 	out := new(FollowUserResponse)
-	err := grpc.Invoke(ctx, "/Userd/FollowUser", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/Userd/FollowUser", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -253,21 +579,30 @@ func (c *userdClient) FollowUser(ctx context.Context, in *FollowUserRequest, opt
 
 func (c *userdClient) GetAllFollowers(ctx context.Context, in *FollowerDetailsRequest, opts ...grpc.CallOption) (*FollowerDetailsResponse, error) {
 	out := new(FollowerDetailsResponse)
-	err := grpc.Invoke(ctx, "/Userd/GetAllFollowers", in, out, c.cc, opts...)
+	err := c.cc.Invoke(ctx, "/Userd/GetAllFollowers", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// Server API for Userd service
+func (c *userdClient) UnFollowUser(ctx context.Context, in *UnFollowUserRequest, opts ...grpc.CallOption) (*UnFollowUserResponse, error) {
+	out := new(UnFollowUserResponse)
+	err := c.cc.Invoke(ctx, "/Userd/UnFollowUser", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
 
+// UserdServer is the server API for Userd service.
 type UserdServer interface {
 	NewUser(context.Context, *NewUserRequest) (*NewUserResponse, error)
 	GetUser(context.Context, *GetUserRequest) (*GetUserResponse, error)
 	ValidateUser(context.Context, *ValidateUserRequest) (*GetUserResponse, error)
 	FollowUser(context.Context, *FollowUserRequest) (*FollowUserResponse, error)
 	GetAllFollowers(context.Context, *FollowerDetailsRequest) (*FollowerDetailsResponse, error)
+	UnFollowUser(context.Context, *UnFollowUserRequest) (*UnFollowUserResponse, error)
 }
 
 func RegisterUserdServer(s *grpc.Server, srv UserdServer) {
@@ -364,6 +699,24 @@ func _Userd_GetAllFollowers_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Userd_UnFollowUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UnFollowUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserdServer).UnFollowUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/Userd/UnFollowUser",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserdServer).UnFollowUser(ctx, req.(*UnFollowUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _Userd_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "Userd",
 	HandlerType: (*UserdServer)(nil),
@@ -388,36 +741,11 @@ var _Userd_serviceDesc = grpc.ServiceDesc{
 			MethodName: "GetAllFollowers",
 			Handler:    _Userd_GetAllFollowers_Handler,
 		},
+		{
+			MethodName: "UnFollowUser",
+			Handler:    _Userd_UnFollowUser_Handler,
+		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "userservice.proto",
-}
-
-func init() { proto.RegisterFile("userservice.proto", fileDescriptor1) }
-
-var fileDescriptor1 = []byte{
-	// 364 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x93, 0x4f, 0x6f, 0xaa, 0x40,
-	0x14, 0xc5, 0x83, 0xe0, 0x7b, 0x7a, 0x79, 0x11, 0xbd, 0x1a, 0x25, 0x6c, 0x9e, 0x61, 0x65, 0x5e,
-	0x5e, 0x66, 0x41, 0xff, 0xec, 0x9b, 0xd0, 0x1a, 0x37, 0xb6, 0x31, 0xd1, 0xfd, 0xb4, 0xdc, 0x26,
-	0x24, 0xa3, 0x58, 0x06, 0xeb, 0x57, 0xe9, 0xc7, 0x6d, 0x06, 0x46, 0x44, 0xd4, 0xee, 0xb8, 0x73,
-	0xcf, 0xbd, 0x73, 0x38, 0x3f, 0x80, 0xde, 0x4e, 0x52, 0x2a, 0x29, 0xfd, 0x8c, 0xdf, 0x88, 0x6d,
-	0xd3, 0x24, 0x4b, 0x3c, 0x5b, 0x1d, 0x45, 0x45, 0xe1, 0xaf, 0xa0, 0x33, 0xa7, 0xfd, 0x52, 0x52,
-	0xba, 0xa0, 0x8f, 0x1d, 0xc9, 0x0c, 0x11, 0xac, 0x39, 0x5f, 0x93, 0x6b, 0x8c, 0x8d, 0x49, 0x7b,
-	0x61, 0x6d, 0xf8, 0x9a, 0x70, 0x00, 0xcd, 0xc7, 0x35, 0x8f, 0x85, 0xdb, 0xc8, 0x0f, 0x9b, 0xa4,
-	0x0a, 0xf4, 0xa0, 0xf5, 0xc2, 0xa5, 0xdc, 0x27, 0x69, 0xe4, 0x9a, 0x79, 0xa3, 0xb5, 0xd5, 0xb5,
-	0xdf, 0x03, 0xa7, 0xdc, 0x2b, 0xb7, 0xc9, 0x46, 0x92, 0xef, 0x43, 0x67, 0x4a, 0x59, 0xf5, 0xaa,
-	0x2e, 0x98, 0xcb, 0x59, 0xa8, 0x6f, 0x32, 0x77, 0xb3, 0xd0, 0x0f, 0xc0, 0x29, 0x35, 0xc5, 0x18,
-	0xfe, 0x05, 0x4b, 0xd5, 0xb9, 0xca, 0x0e, 0x6c, 0x56, 0xb8, 0xcf, 0x25, 0x96, 0x7a, 0xf6, 0xa7,
-	0xd0, 0x5f, 0x71, 0x11, 0x47, 0x3c, 0xa3, 0xea, 0xf2, 0xd2, 0xb3, 0x71, 0xcd, 0x73, 0xa3, 0xe6,
-	0x79, 0x0a, 0xbd, 0xa7, 0x44, 0x88, 0x64, 0xff, 0xa3, 0x47, 0x1c, 0x83, 0x5d, 0xc8, 0x28, 0x55,
-	0x9d, 0x62, 0x8b, 0xfd, 0x7e, 0x3c, 0xf2, 0x07, 0x80, 0xd5, 0x45, 0xfa, 0xfd, 0xff, 0xc1, 0xf0,
-	0x30, 0x17, 0x52, 0xc6, 0x63, 0x21, 0xaf, 0xe7, 0xf0, 0x0c, 0xa3, 0x33, 0xad, 0xce, 0xe3, 0x16,
-	0xda, 0x87, 0x96, 0x74, 0x8d, 0xb1, 0x39, 0xb1, 0x83, 0xa1, 0x0e, 0xa5, 0x3e, 0xd2, 0x3e, 0x98,
-	0x92, 0xc1, 0x57, 0x03, 0x9a, 0xca, 0x4d, 0x84, 0xff, 0xe1, 0xb7, 0x26, 0x83, 0x0e, 0x3b, 0x65,
-	0xef, 0x75, 0x59, 0x0d, 0x9a, 0x52, 0x6b, 0x20, 0xe8, 0xb0, 0x53, 0x7c, 0x5e, 0x97, 0xd5, 0x59,
-	0xdd, 0xc3, 0x9f, 0x2a, 0x0a, 0x1c, 0xb0, 0x0b, 0x64, 0x2e, 0xcc, 0xdd, 0x01, 0x1c, 0x03, 0x43,
-	0x64, 0x67, 0x18, 0xbc, 0x3e, 0x3b, 0x4f, 0x14, 0xc3, 0xfc, 0x6b, 0x79, 0x10, 0xa2, 0x0c, 0x04,
-	0x47, 0xec, 0x72, 0xc6, 0x9e, 0xcb, 0xae, 0x04, 0xfa, 0xfa, 0x2b, 0xff, 0x13, 0x6e, 0xbe, 0x03,
-	0x00, 0x00, 0xff, 0xff, 0xef, 0x1b, 0x20, 0xad, 0x2b, 0x03, 0x00, 0x00,
 }

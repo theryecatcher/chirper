@@ -7,7 +7,8 @@ service Userd {
   rpc GetUser (GetUserRequest) returns (GetUserResponse);
   rpc ValidateUser (ValidateUserRequest) returns (GetUserResponse);
   rpc FollowUser (FollowUserRequest) returns (FollowUserResponse);
-  rpc GetAllFollowers (FollowerDetailsRequest) returns (FollowerDetailsResponse); 
+  rpc GetAllFollowers (FollowerDetailsRequest) returns (FollowerDetailsResponse);
+  rpc UnFollowUser (UnFollowUserRequest) returns (UnFollowUserResponse);  
 }
 
 message NewUserRequest {
@@ -33,7 +34,7 @@ message ValidateUserRequest {
 
 message FollowUserRequest {
   string UID = 1;
-  string FollowerUID = 2;
+  string FollowingUID = 2;
 }
 
 message FollowUserResponse{}
@@ -45,3 +46,10 @@ message FollowerDetailsRequest {
 message FollowerDetailsResponse {
   repeated userd.FollowerDetails Followers = 1;
 }
+
+message UnFollowUserRequest {
+  string UID = 1;
+  string FollowedUID = 2;  
+}
+
+message UnFollowUserResponse {}

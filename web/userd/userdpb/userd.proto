@@ -9,7 +9,7 @@ message User {
   string Name = 2;
   string Email = 3;
   string Password = 4;
-  repeated string FollowerUID = 5; 
+  repeated string FollowingUID = 5; 
 }
 
 message NewUser {
