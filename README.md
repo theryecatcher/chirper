@@ -11,6 +11,7 @@ Just do a git pul on the repo or better you could do a go get any one of the bel
 ```
 git clone https://github.com/theryecatcher/chirper/
 go get github.com/theryecatcher/chirper
+cd chirper/
 ```
 
 ### Have Fun!!!
