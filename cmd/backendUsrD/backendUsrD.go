@@ -5,27 +5,19 @@ import (
 	"log"
 	"net"
 
-	"github.com/theryecatcher/chirper/userd"
-	"github.com/theryecatcher/chirper/userd/userdpb"
+	"github.com/theryecatcher/chirper/userd/api/grpc"
 
 	"google.golang.org/grpc"
 )
 
 func main() {
-	usrCfg := &userd.Config{}
-
-	usrDb, err := userd.New(usrCfg)
-	if err != nil {
-		panic(err)
-	}
 
 	lisUsrD, err := net.Listen("tcp", fmt.Sprintf("%v:%v", "localhost", "5446"))
 	if err != nil {
 		log.Fatalf("Error listening %v", err)
 	}
 
-	grpcUsrServer := grpc.NewServer()
-	userdpb.RegisterUserdServer(grpcUsrServer, usrDb)
-	grpcUsrServer.Serve(lisUsrD)
-
+	userdServer := grpc.NewServer()
+	userd.RegisterGRPCServer(userdServer)
+	userdServer.Serve(lisUsrD)
 }

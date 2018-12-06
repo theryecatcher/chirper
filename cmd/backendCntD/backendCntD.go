@@ -5,26 +5,18 @@ import (
 	"log"
 	"net"
 
-	"github.com/theryecatcher/chirper/contentd"
-	"github.com/theryecatcher/chirper/contentd/contentdpb"
-
+	"github.com/theryecatcher/chirper/contentd/api/grpc"
 	"google.golang.org/grpc"
 )
 
 func main() {
-	cntCfg := &contentd.Config{}
-
-	contentDb, err := contentd.New(cntCfg)
-	if err != nil {
-		panic(err)
-	}
 
 	lisCntD, err := net.Listen("tcp", fmt.Sprintf("%v:%v", "localhost", "5445"))
 	if err != nil {
 		log.Fatalf("Error listening %v", err)
 	}
 
-	grpcCntServer := grpc.NewServer()
-	contentdpb.RegisterContentdServer(grpcCntServer, contentDb)
-	grpcCntServer.Serve(lisCntD)
+	contentServer := grpc.NewServer()
+	contentd.RegisterGRPCServer(contentServer)
+	contentServer.Serve(lisCntD)
 }
