@@ -30,7 +30,7 @@ func (ws *Web) TweetsGet(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 	}
 
 	UIDs = append(UIDs, userID)
-	UIDs = append(UIDs, user.User.FollowerUID...)
+	UIDs = append(UIDs, user.User.FollowingUID...)
 	fmt.Println(UIDs)
 
 	tweets, twtErr := ws.contentDaemon.GetTweetsByUser(context.Background(), &contentdpb.GetTweetsByUserRequest{

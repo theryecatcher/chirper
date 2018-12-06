@@ -21,12 +21,12 @@ func (ws *Web) FollowGet(w http.ResponseWriter, r *http.Request, ps httprouter.P
 	userID := fmt.Sprintf("%s", sess.Values["id"])
 
 	// params = gcontext.Get(r, "params").(httprouter.Params)
-	followerID := ps.ByName("uid")
+	followingID := ps.ByName("uid")
 
 	// Get database result
 	_, err := ws.userDaemon.FollowUser(context.Background(), &userdpb.FollowUserRequest{
-		UID:         userID,
-		FollowerUID: followerID,
+		UID:          userID,
+		FollowingUID: followingID,
 	})
 	// Will only error if there is a problem with the query
 	if err != nil {
@@ -55,7 +55,7 @@ func (ws *Web) UnFollowGet(w http.ResponseWriter, r *http.Request, ps httprouter
 	// Get database result
 	_, err := ws.userDaemon.UnFollowUser(context.Background(), &userdpb.UnFollowUserRequest{
 		UID:         userID,
-		FollowerUID: followerID,
+		FollowedUID: followerID,
 	})
 	// Will only error if there is a problem with the query
 	if err != nil {

@@ -3,7 +3,6 @@ package contentstorage
 import (
 	"context"
 	"errors"
-	"fmt"
 	"log"
 	"sort"
 	"sync"
@@ -102,7 +101,7 @@ func (ds *DummyStorage) GetTweet(ctx context.Context, TID string) (*contentdpb.T
 	}
 }
 
-// For Sorting Logic
+// Custom Sorting Logic
 type timeSortedTweets []*contentdpb.Tweet
 
 func (t timeSortedTweets) Len() int {
@@ -125,17 +124,17 @@ func (ds *DummyStorage) GetTweetsByUser(ctx context.Context, UID []string) ([]*c
 	tweetsNotFound := make(chan error)
 	oops := make(chan error)
 
-	fmt.Println(UID)
+	log.Println(UID)
 
-	for _, userID := range UID {
-		go func() {
-			tweetMap, exists := ds.tweets[userID]
+	for idx := range UID {
+		go func(userID *string) {
+			tweetMap, exists := ds.tweets[*userID]
 			if !exists {
-				tweetsNotFound <- errors.New("User " + userID + "'s Content could not be found")
+				tweetsNotFound <- errors.New("User " + *userID + "'s Content could not be found")
 				return
 			}
 			result <- tweetMap
-		}()
+		}(&UID[idx])
 	}
 
 	go func() {
