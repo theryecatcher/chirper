@@ -6,9 +6,6 @@ go:
 install: true
 notifications:
   emails: false
-before_script:
-  - go install github.com/golang/net
-  - go install github.com/golang.org/sys/unix
 script:
   - go test -race -coverprofile=coverage.txt -covermode=atomic ./...
 after_success:
