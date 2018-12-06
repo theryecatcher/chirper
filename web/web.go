@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/theryecatcher/chirper/web/contentd/contentdpb"
-	"github.com/theryecatcher/chirper/web/userd/userdpb"
+	"github.com/theryecatcher/chirper/contentd/contentdpb"
+	"github.com/theryecatcher/chirper/userd/userdpb"
 	"google.golang.org/grpc"
 
 	"github.com/julienschmidt/httprouter"

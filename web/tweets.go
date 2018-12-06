@@ -6,10 +6,10 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/theryecatcher/chirper/web/userd/userdpb"
+	"github.com/theryecatcher/chirper/userd/userdpb"
 
 	"github.com/julienschmidt/httprouter"
-	"github.com/theryecatcher/chirper/web/contentd/contentdpb"
+	"github.com/theryecatcher/chirper/contentd/contentdpb"
 	"github.com/theryecatcher/chirper/web/session"
 	"github.com/theryecatcher/chirper/web/views"
 )
