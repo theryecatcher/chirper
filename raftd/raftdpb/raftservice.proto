@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package raftd;
+
+option go_package="raftdpb";
+
+service Raftd {
+  rpc RaftGet (RaftGetRequest) returns (RaftGetResponse);
+  rpc RaftSetKeyValue (RaftSetKeyValueRequest) returns (RaftSetKeyValueResponse);
+  rpc RaftDelete (RaftDeleteRequest) returns (RaftDeleteResponse);
+  rpc RaftJoin (RaftJoinRequest) returns (RaftJoinResponse);
+  rpc RaftGetAllUsrKeys (RaftGetAllUsrKeysRequest) returns (RaftGetAllUsrKeysResponse);
+}
+
+message RaftGetRequest {
+    string Key = 1;
+}
+
+message RaftGetResponse {
+    string Value = 1;
+}
+
+message RaftSetKeyValueRequest {
+    string Key = 1;
+    string Value = 2;
+}
+
+message RaftSetKeyValueResponse {}
+
+message RaftDeleteRequest {
+    string Key = 1;
+}
+
+message RaftDeleteResponse {}
+
+message RaftJoinRequest {
+    string NodeID = 1;
+    string NodeAddress = 2;
+}
+
+message RaftJoinResponse {}
+
+message RaftGetAllUsrKeysRequest {}
+
+message RaftGetAllUsrKeysResponse {
+    repeated string Value = 1;
+}
