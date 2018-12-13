@@ -1,7 +1,6 @@
 package web
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -9,14 +8,11 @@ import (
 	"github.com/theryecatcher/chirper/web/views"
 )
 
-// func (ws *Web) Index(w http.ResponseWriter, req *http.Request) {
-// 	w.Write([]byte("Under construction"))
-// }
 // Index displays the home page
 func (ws *Web) Index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	// Get session
 	session := session.Instance(r)
-	fmt.Println(session.Values["id"])
+	ws.logger.Println(session.Values["id"])
 
 	if session.Values["id"] != nil {
 		// Display the view

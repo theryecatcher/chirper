@@ -3,7 +3,6 @@ package web
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/theryecatcher/chirper/userd/userdpb"
@@ -26,7 +25,7 @@ func (ws *Web) TweetsGet(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 		UID: userID,
 	})
 	if usrErr != nil {
-		log.Println(usrErr)
+		ws.logger.Println(usrErr)
 	}
 
 	UIDs = append(UIDs, userID)
@@ -37,7 +36,7 @@ func (ws *Web) TweetsGet(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 		UID: UIDs,
 	})
 	if twtErr != nil {
-		log.Println(twtErr)
+		ws.logger.Println(twtErr)
 		tweets = tweets
 	}
 
@@ -45,7 +44,7 @@ func (ws *Web) TweetsGet(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 		UID: userID,
 	})
 	if userderr != nil {
-		log.Println(userderr)
+		ws.logger.Println(userderr)
 	}
 
 	// Need to Parallellize
@@ -54,7 +53,7 @@ func (ws *Web) TweetsGet(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 			UID: tweet.PosterUID,
 		})
 		if err != nil {
-			log.Println(err)
+			ws.logger.Println(err)
 			tweet.PosterUID = "Anonymous"
 		} else {
 			tweet.PosterUID = usr.User.Name
@@ -106,7 +105,7 @@ func (ws *Web) TweetsCreatePost(w http.ResponseWriter, r *http.Request, _ httpro
 	})
 	// Error if there is a problem with the query
 	if err != nil {
-		log.Println(err)
+		ws.logger.Println(err)
 		sess.AddFlash(view.Flash{"An error occurred on the server. Please try again later.", view.FlashError})
 		sess.Save(r, w)
 	} else {
