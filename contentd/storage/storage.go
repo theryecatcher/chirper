@@ -1,9 +1,10 @@
-// Package storage defines an interface, which is used
+// Package contentstorage defines an interface, which is used
 // by the Content package, for the storage and retrieval of tweets
 package contentstorage
 
 import (
 	"context"
+	"log"
 
 	"github.com/theryecatcher/chirper/contentd/contentdpb"
 )
@@ -14,6 +15,8 @@ type Storage interface {
 	NewTweet(ctx context.Context, tweet *contentdpb.NewTweet) error
 
 	// Queries
-	GetTweet(ctx context.Context, TID string) (*contentdpb.Tweet, error)
 	GetTweetsByUser(ctx context.Context, UID []string) ([]*contentdpb.Tweet, error)
+
+	// Logger
+	GetLoggerHandle() *log.Logger
 }
