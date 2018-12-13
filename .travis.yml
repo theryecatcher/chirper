@@ -5,7 +5,7 @@ go:
 - tip # The latest version of Go.
 env:
 - GO111MODULE=on
-install: true
+install: false
 notifications:
   emails: false
 script:
