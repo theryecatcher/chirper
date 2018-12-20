@@ -4,6 +4,7 @@ package userstorage
 
 import (
 	"context"
+	"log"
 
 	"github.com/theryecatcher/chirper/userd/userdpb"
 )
@@ -18,4 +19,6 @@ type Storage interface {
 	GetUser(ctx context.Context, UID string) (*userdpb.User, error)
 	ValidateUser(ctx context.Context, user *userdpb.CheckUser) (*userdpb.User, error)
 	GetAllFollowers(ctx context.Context, UID string) ([]*userdpb.FollowerDetails, error)
+	// Logger
+	GetLoggerHandle() *log.Logger
 }
