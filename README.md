@@ -16,7 +16,7 @@ go get github.com/theryecatcher/chirper
 ### Have Fun!!!
 The code is designed as an in Memory application with Persistent storage provided by the RAFT Consensus Protocol. The Radt Wrapper, Content Wrapper and the User Wrapper run as daemons and are connected as microservices for the main web server. 
 
-The application can be started using the startall.sh bash script as below.
+The application can be started using the startall.sh bash script as below. The web server doesn't run as a daemon and is a live shell command in the terminal that runs the startall script (Ctrl + C kills it).
 ```
 cd chirper
 ./startall.sh
@@ -32,6 +32,8 @@ src/github.com/theryecatcher/chirper/cmd/backendCntD/backendCntD
 src/github.com/theryecatcher/chirper/cmd/backendUsrD/backendUsrD
 sudo src/github.com/theryecatcher/chirper/cmd/web/web
 ```
+
+For killing any of the nodes or daemons just run the commands in kill.txt.
 
 As seen above the commands start the daemons and also the main web application. Until this is hosted it is configured to run on localhost.
 
