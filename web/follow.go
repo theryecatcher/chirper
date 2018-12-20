@@ -3,7 +3,6 @@ package web
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -30,7 +29,7 @@ func (ws *Web) FollowGet(w http.ResponseWriter, r *http.Request, ps httprouter.P
 	})
 	// Will only error if there is a problem with the query
 	if err != nil {
-		log.Println(err)
+		ws.logger.Println(err)
 		sess.AddFlash(view.Flash{"An error occurred on the server. Please try again later.", view.FlashError})
 		sess.Save(r, w)
 	} else {
@@ -59,7 +58,7 @@ func (ws *Web) UnFollowGet(w http.ResponseWriter, r *http.Request, ps httprouter
 	})
 	// Will only error if there is a problem with the query
 	if err != nil {
-		log.Println(err)
+		ws.logger.Println(err)
 		sess.AddFlash(view.Flash{"An error occurred on the server. Please try again later.", view.FlashError})
 		sess.Save(r, w)
 	} else {

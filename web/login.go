@@ -3,7 +3,6 @@ package web
 import (
 	"context"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/theryecatcher/chirper/userd/userdpb"
@@ -49,20 +48,23 @@ func (ws *Web) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 		Password: password,
 	})
 
-	log.Println(result)
+	ws.logger.Println(result)
 	// Determine if user exists
 	if err != nil {
 		if err.Error() == "rpc error: code = Unknown desc = User not found" { // no user exists with that email
-			log.Println(err)
+			ws.logger.Println(err)
 			sess.AddFlash(view.Flash{"User is not registered", view.FlashWarning})
+			sess.Save(r, w)
+		} else if err.Error() == "rpc error: code = Unknown desc = Incorrect password" {
+			sess.AddFlash(view.Flash{"Password is incorrect.", view.FlashWarning})
 			sess.Save(r, w)
 		} else {
 			// Display error message
-			log.Println(err)
+			ws.logger.Println(err)
 			sess.AddFlash(view.Flash{"There was an error on the server. Please try again later.", view.FlashError})
 			sess.Save(r, w)
 		}
-	} else if result.User != nil {
+	} else {
 		// Login successfully
 		session.Empty(sess)
 		sess.AddFlash(view.Flash{"Login successful!", view.FlashSuccess})
@@ -73,12 +75,9 @@ func (ws *Web) LoginPost(w http.ResponseWriter, r *http.Request, _ httprouter.Pa
 		if err != nil {
 			fmt.Println(err)
 		}
-		fmt.Println(sess.Values["id"])
+		ws.logger.Println(sess.Values["id"])
 		http.Redirect(w, r, "/", http.StatusFound)
 		return
-	} else {
-		sess.AddFlash(view.Flash{"Password is incorrect.", view.FlashWarning})
-		sess.Save(r, w)
 	}
 
 	// Show the login page again
