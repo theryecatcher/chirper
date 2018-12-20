@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/theryecatcher/chirper/contentd/contentdpb"
 	"github.com/theryecatcher/chirper/userd/userdpb"
@@ -17,16 +18,20 @@ type Web struct {
 
 	contentDaemon contentdpb.ContentdClient
 	userDaemon    userdpb.UserdClient
+
+	logger *log.Logger
 }
 
 func New(cfg *Config) (*Web, error) {
+
+	loclLogger := log.New(os.Stderr, "[webServer] ", log.LstdFlags)
 
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithInsecure())
 
 	cntdConn, err := grpc.Dial("localhost:5445", opts...)
 	if err != nil {
-		log.Fatalf("failure while dialing: %v", err)
+		loclLogger.Fatalf("failure while dialing: %v", err)
 	}
 	// defer cntdConn.Close()
 	// Need to figure out adding this I keep getting error
@@ -34,7 +39,7 @@ func New(cfg *Config) (*Web, error) {
 
 	usrdConn, err := grpc.Dial("localhost:5446", opts...)
 	if err != nil {
-		log.Fatalf("failure while dialing: %v", err)
+		loclLogger.Fatalf("failure while dialing: %v", err)
 	}
 	// defer usrdConn.Close()
 
@@ -49,6 +54,7 @@ func New(cfg *Config) (*Web, error) {
 		srv:           s,
 		contentDaemon: contentdpb.NewContentdClient(cntdConn),
 		userDaemon:    userdpb.NewUserdClient(usrdConn),
+		logger:        loclLogger,
 	}
 
 	r.GET("/static/*filepath", ws.Static)
@@ -74,9 +80,6 @@ func New(cfg *Config) (*Web, error) {
 }
 
 func (w *Web) Start() error {
-	// Start Content Daemon
-	//Start User Daemon
-
 	return w.srv.ListenAndServe()
 }
 

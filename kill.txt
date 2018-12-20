@@ -1,0 +1,3 @@
+kill $(ps -ef | grep "[b]ackendRaftD" | awk '{print $2}')
+kill $(ps -ef | grep "[b]ackendUsrD" | awk '{print $2}')
+kill $(ps -ef | grep "[b]ackendCntD" | awk '{print $2}')

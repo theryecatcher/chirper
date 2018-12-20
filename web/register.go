@@ -3,7 +3,6 @@ package web
 import (
 	"bytes"
 	"context"
-	"log"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -45,40 +44,31 @@ func (ws *Web) RegisterPost(w http.ResponseWriter, r *http.Request, _ httprouter
 	password := r.FormValue("password")
 
 	// Get database result
-	_, err := ws.userDaemon.ValidateUser(context.Background(), &userdpb.ValidateUserRequest{
+	var buffer bytes.Buffer
+	buffer.WriteString(firstName)
+	buffer.WriteString(" ")
+	buffer.WriteString(lastName)
+
+	_, err := ws.userDaemon.NewUser(context.Background(), &userdpb.NewUserRequest{
+		Name:     buffer.String(),
 		Email:    email,
 		Password: password,
 	})
-
-	if err.Error() == "rpc error: code = Unknown desc = User not found" { // If success (no user exists with that email)
-		var buffer bytes.Buffer
-		buffer.WriteString(firstName)
-		buffer.WriteString(" ")
-		buffer.WriteString(lastName)
-
-		_, ex := ws.userDaemon.NewUser(context.Background(), &userdpb.NewUserRequest{
-			Name:     buffer.String(),
-			Email:    email,
-			Password: password,
-		})
-		// Will only error if there is a problem with the query
-		if ex != nil {
-			log.Println(ex)
-			sess.AddFlash(view.Flash{"An error occurred on the server. Please try again later.", view.FlashError})
+	// Will only error if there is a problem with the query
+	if err != nil {
+		if err.Error() == "rpc error: code = Unknown desc = User already exists" {
+			sess.AddFlash(view.Flash{"Account already exists for: " + email, view.FlashError})
 			sess.Save(r, w)
 		} else {
-			sess.AddFlash(view.Flash{"Account created successfully for: " + email, view.FlashSuccess})
+			ws.logger.Println(err)
+			sess.AddFlash(view.Flash{"An error occurred on the server. Please try again later.", view.FlashError})
 			sess.Save(r, w)
-			http.Redirect(w, r, "/login", http.StatusFound)
-			return
 		}
-	} else if err != nil { // Catch all other errors
-		log.Println(err)
-		sess.AddFlash(view.Flash{"An error occurred on the server. Please try again later.", view.FlashError})
+	} else {
+		sess.AddFlash(view.Flash{"Account created successfully for: " + email, view.FlashSuccess})
 		sess.Save(r, w)
-	} else { // Else the user already exists
-		sess.AddFlash(view.Flash{"Account already exists for: " + email, view.FlashError})
-		sess.Save(r, w)
+		http.Redirect(w, r, "/login", http.StatusFound)
+		return
 	}
 
 	// Display the page

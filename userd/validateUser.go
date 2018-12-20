@@ -2,14 +2,13 @@ package userd
 
 import (
 	"context"
-	"log"
 
 	"github.com/theryecatcher/chirper/userd/userdpb"
 )
 
 func (usr *Userd) ValidateUser(ctx context.Context, req *userdpb.ValidateUserRequest) (*userdpb.GetUserResponse, error) {
 
-	log.Println("Userd: Validate user")
+	usr.usrStrg.GetLoggerHandle().Println("Userd: Validate user")
 
 	cu := &userdpb.CheckUser{
 		Email:    req.Email,
