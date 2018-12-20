@@ -10,6 +10,6 @@ type Userd struct {
 
 func New(cfg *Config) (*Userd, error) {
 	return &Userd{
-		usrStrg: userstorage.NewDummyUserStorage(),
+		usrStrg: userstorage.NewUserStoreWrapper(),
 	}, nil
 }
